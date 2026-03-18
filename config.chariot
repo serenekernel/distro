@@ -1,0 +1,11 @@
+@import "recipes/**/*.chariot"
+
+@env "CLICOLOR_FORCE" = "1"
+
+@option "arch" = [ "x86_64", "aarch64" ]
+@option "buildtype" = [ "debug", "release" ]
+
+source/support {
+    type: "local",
+    url: "support"
+}
