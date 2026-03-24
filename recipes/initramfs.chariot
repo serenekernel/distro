@@ -1,15 +1,8 @@
 custom/initramfs {
-    dependencies: [ custom/kernel ]
+    dependencies: [ custom/kernel package/hello ]
     options: [ "arch" ]
     build: <sh>
-        mkdir -p initramfs
-
-        # if [ "$OPTION_arch" = "x86_64" ]; then
-            # cp $SYSROOT_DIR/usr/bin/*.elf ./initramfs/
-        # fi
-
-        (cd initramfs && tar -cf ../initramfs.tar .)
-        rm -r initramfs
+        (cd $SYSROOT_DIR && tar -cf $BUILD_DIR/initramfs.tar . -H ustar)
     </sh>
     install: <sh>install initramfs.tar $INSTALL_DIR</sh>
 }

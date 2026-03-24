@@ -68,7 +68,7 @@ validate(cfg)
 
 if (
     chariot_utils.build(
-        ["source/kernel", "source/test_app", "source/init_system", "custom/image"],
+        ["source/kernel", "custom/image"],
         options=["-o", f"arch={cfg.arch}"],
     ).returncode
     != 0

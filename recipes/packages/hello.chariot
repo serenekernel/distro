@@ -1,0 +1,13 @@
+source/hello {
+    url: "hello_world"
+    type: "local"
+}
+
+package/hello {
+    dependencies: [ source/hello tool/gcc_bootstrap package/mlibc package/mlibc_headers ]
+    options: [ ]
+    build: <sh>
+        x86_64-serene-gcc -o $BUILD_DIR/hello.elf $SOURCES_DIR/hello/hello.c
+    </sh>
+    install: <sh>cp $BUILD_DIR/hello.elf $INSTALL_DIR/hello.elf</sh>
+}
