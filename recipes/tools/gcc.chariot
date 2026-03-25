@@ -23,15 +23,14 @@ source/gcc {
 tool/gcc {
     dependencies: [
         %source/gcc
-        image/build-essential
         tool/autoconf_archive *tool/binutils tool/pkgconf
         collection/autotools_2.69
-        *!package/mlibc_headers *!package/mlibc
+        !*package/mlibc_headers !*package/mlibc image/build-essential
     ]
     configure: <sh>
         CFLAGS="-O2" CXXFLAGS="-O2" $SOURCES_DIR/gcc/configure \
-            --prefix=$PREFIX \
             --target=x86_64-serene \
+            --prefix=$PREFIX \
             --with-sysroot=$SYSROOT_DIR \
             --enable-languages=c,c++ \
             --disable-nls \
@@ -42,9 +41,11 @@ tool/gcc {
         export PATH="$PATH:/usr/bin/core_perl"
         make -j$PARALLELISM all-gcc
         make -j$PARALLELISM all-target-libgcc
+        make -j$PARALLELISM all-target-libstdc++-v3
     </sh>
     install: <sh>
         DESTDIR=$INSTALL_DIR make install-gcc
         DESTDIR=$INSTALL_DIR make install-target-libgcc
+        DESTDIR=$INSTALL_DIR make install-target-libstdc++-v3
     </sh>
 }

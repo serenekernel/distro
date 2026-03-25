@@ -3,8 +3,10 @@ source/hello {
     type: "local"
 }
 
+@collection mlibc_build = [ tool/binutils tool/gcc package/mlibc package/mlibc_headers ]
+
 package/hello {
-    dependencies: [ source/hello tool/gcc_bootstrap package/mlibc package/mlibc_headers ]
+    dependencies: [ source/hello collection/mlibc_build ]
     options: [ ]
     build: <sh>
         x86_64-serene-gcc -o $BUILD_DIR/hello.elf $SOURCES_DIR/hello/hello.c
