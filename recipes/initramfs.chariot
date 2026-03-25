@@ -1,8 +1,12 @@
 custom/initramfs {
-    dependencies: [ custom/kernel package/hello ]
+    dependencies: [ custom/kernel package/hello tool/rdsk ]
     options: [ "arch" ]
+    always_clean: "yes"
     build: <sh>
-        (cd $SYSROOT_DIR && tar -cf $BUILD_DIR/initramfs.tar . -H ustar)
+        mkdir ./root_directory
+        cp -r $SYSROOT_DIR/* ./root_directory
+        mkdir ./root_directory/tmp
+        rdsk -c ./root_directory -o initramfs.rdk
     </sh>
-    install: <sh>install initramfs.tar $INSTALL_DIR</sh>
+    install: <sh>install initramfs.rdk $INSTALL_DIR</sh>
 }

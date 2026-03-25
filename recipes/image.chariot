@@ -6,7 +6,7 @@ custom/image {
         mkdir -p iso_root/boot
 
         cp $CUSTOM_DIR/kernel/kernel.elf ./iso_root/boot/kernel
-        cp $CUSTOM_DIR/initramfs/initramfs.tar ./iso_root/boot/initramfs.tar
+        cp $CUSTOM_DIR/initramfs/initramfs.rdk ./iso_root/boot/initramfs.rdk
         cp $SYSROOT_DIR/hello.elf ./iso_root/boot/test.elf
 
         cp $SOURCES_DIR/kernel/limine.conf ./iso_root
