@@ -1,10 +1,12 @@
 custom/initramfs {
-    dependencies: [ custom/kernel package/hello tool/rdsk ]
+    dependencies: [ custom/kernel package/hello package/mlibc tool/rdsk ]
     options: [ "arch" ]
     always_clean: "yes"
     build: <sh>
         mkdir ./root_directory
         cp -r $SYSROOT_DIR/* ./root_directory
+        mkdir ./root_directory/dev/
+        mkdir ./root_directory/dev/console
         mkdir ./root_directory/tmp
         rdsk -c ./root_directory -o initramfs.rdk
     </sh>
