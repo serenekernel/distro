@@ -1,13 +1,22 @@
 custom/initramfs {
-    dependencies: [ custom/kernel package/hello package/mlibc tool/rdsk ]
+    dependencies: [ custom/kernel package/hello package/mlibc package/bash tool/rdsk ]
     options: [ "arch" ]
     always_clean: "yes"
     build: <sh>
         mkdir ./root_directory
-        cp -r $SYSROOT_DIR/* ./root_directory
-        mkdir ./root_directory/dev/
+        mkdir -p ./root_directory/{dev,tmp,usr}
+        mkdir -p ./root_directory/usr/{bin,lib,include,share}
         mkdir ./root_directory/dev/console
-        mkdir ./root_directory/tmp
+
+        cp -r $SYSROOT_DIR/usr/bin ./root_directory/usr
+        cp -r $SYSROOT_DIR/usr/lib ./root_directory/usr
+        cp -r $SYSROOT_DIR/usr/include ./root_directory/usr
+        cp -r $SYSROOT_DIR/usr/share ./root_directory/usr
+
+        # rdisk can't handle the symlinks
+        rm ./root_directory/usr/lib/terminfo
+        cp -r $SYSROOT_DIR/usr/share/terminfo ./root_directory/usr/lib/terminfo
+
         rdsk -c ./root_directory -o initramfs.rdk
     </sh>
     install: <sh>install initramfs.rdk $INSTALL_DIR</sh>

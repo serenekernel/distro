@@ -11,5 +11,8 @@ package/hello {
     build: <sh>
         x86_64-serene-gcc -o $BUILD_DIR/hello.elf $SOURCES_DIR/hello/hello.c
     </sh>
-    install: <sh>cp $BUILD_DIR/hello.elf $INSTALL_DIR/hello.elf</sh>
+    install: <sh>
+        mkdir -p $INSTALL_DIR/usr/bin
+        cp $BUILD_DIR/hello.elf $INSTALL_DIR/usr/bin/hello.elf
+    </sh>
 }

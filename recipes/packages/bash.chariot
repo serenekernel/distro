@@ -13,6 +13,7 @@ package/bash {
 
         collection/mlibc_build
         image/build-essential
+        collection/mlibc_build
     ]
     configure: <sh>
         bash_cv_void_sighandler=yes \
