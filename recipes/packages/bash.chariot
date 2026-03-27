@@ -17,6 +17,7 @@ package/bash {
     ]
     configure: <sh>
         bash_cv_void_sighandler=yes \
+        bash_cv_getcwd_malloc=yes \
         CFLAGS="-std=gnu89" $SOURCES_DIR/bash/configure \
             --host=x86_64-serene \
             --prefix=$PREFIX \
